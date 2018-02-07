@@ -1,3 +1,6 @@
+/*      ¿¿¿¿BIUG¿¿¿¿¿       */
+/*       made by rainbowtrash        */
+
 //#include "stdafx.h"
 #include <stdio.h>
 #include <conio.h>
@@ -7,15 +10,16 @@
 
 #define high 25
 #define width 50
-#define game_speed 50
+#define game_speed 50  //¿¿¿¿¿¿
 
+//¿¿¿¿
 int canvas[high][width]; // '0' ->space  ; '1' ->airplane * ;'2'->bullet | ,  '3'->enemy # , '4'->hit ¡ö;
 int i, j;
 int *air;
 int score;
 int health;
 
-
+//¿¿¿¿¿
 void startup() {
 	for (i = 0; i < high; ++i) {
 		for (j = 0; j < width; ++j)
@@ -44,6 +48,8 @@ void HideCursor()
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
 }
 
+
+//¿¿¿¿
 void show() {
 	gotoxy(0, 0);
 	HideCursor();
@@ -63,6 +69,7 @@ void show() {
 	printf("ÉúÃü: %d\tµÃ·Ö: %d\n",health,score);
 }
 
+//¿¿¿¿¿¿¿¿¿
 void DataupWithInput() {
 	char input;
 	if (_kbhit()) {
@@ -93,6 +100,8 @@ void DataupWithInput() {
 	}
 }
 
+
+//¿¿¿¿¿¿
 int product_anamy(int production_speed) {
 	static int n=0;
 	if (n < production_speed) {
@@ -108,20 +117,23 @@ int product_anamy(int production_speed) {
 	}
 }
 
+//¿¿¿¿¿¿¿¿¿¿
 void DataupWithoutInput() {
 	int new_canvas[high][width];
 	for (i = 0; i < high; ++i) {
 		for (j = 0; j < width; ++j) {
+		         //¿¿¿¿¿¿
 			if ((i == 0) && (canvas[0][j] == 2)) {
 				new_canvas[0][j] = 0;
 				canvas[0][j] = 0;
 			}
-
+			//¿¿
 			else if (canvas[i][j] == 1) {
 				new_canvas[i][j] = 1;
 				canvas[i][j] = 0;
 			}
-
+			//¿¿¿¿¿¿¿¿
+			//¿¿¿¿¿
 			else if ((canvas[i][j] == 2) && (canvas[i - 1][j] == 3)) {
 				new_canvas[i - 1][j] = 4;
 				new_canvas[i][j] = 0;
@@ -129,52 +141,60 @@ void DataupWithoutInput() {
 				canvas[i][j] == 0;
 				score++;
 			}
-
+			//¿¿¿¿¿¿¿¿
 			else if ((canvas[i][j] == 2) && !(canvas[i - 1][j] == 3)) {
 				new_canvas[i - 1][j] = 2;
 				new_canvas[i][j] = 0;
 				canvas[i][j] = 0;
 			}
-
+			//¿¿¿¿¿¿¿¿
 			else if (canvas[i][j] == 4) {
 				new_canvas[i][j] = 0;
 				canvas[i][j] = 0;
 			}
-
+			//¿¿
 			else if (canvas[i][j] == 0) {
 				new_canvas[i][j] = 0;
 			}
 		}
 	}
+	//¿¿¿¿¿¿¿¿¿¿¿¿¿
+	//¿ www.rainbowtrash.top
 	for (i = high - 1; i > -1; --i) {
 		for (j = width - 1; j > -1; --j) {
+			//¿¿¿¿¿¿¿
 			if ((i == high - 1) && (canvas[i][j] == 3)) {
 				canvas[i][j] = 0;
 				new_canvas[i][j] = 0;
 			}
+			//¿¿¿¿
 			else if (canvas[i][j] == 3) {
 				new_canvas[i + 1][j] = 3;
 				new_canvas[i][j] = 0;
 				canvas[i][j] = 0;
 			}
+			//¿¿¿¿¿¿, ¿¿¿¿
 			if ((canvas[i][j] == 3) && canvas[i + 1][j] == 1) health--;
 		}
 	}
+	//¿¿¿¿canvas
 	for (i = 0; i < high; ++i) {
 		for (j = 0; j < width; ++j) {
 			canvas[i][j] = new_canvas[i][j];
 			}
 		}
-	
+	//¿¿¿¿¿¿¿¿
 	srand((unsigned)time(NULL));
 	product_anamy(20+rand()%20);
 }
-	
+
+//¿¿¿¿	
 int game_over() {
 	if (health) return 1;
 	else return 0;
 }
 
+//debug¿¿, ¿¿canvas¿¿¿¿¿
 int debug(int num) {
 	if (num == 0) return 0;
 	else {
@@ -190,6 +210,7 @@ int debug(int num) {
 	}
 }
 
+//main¿¿
 int main()
 {
 	startup();
