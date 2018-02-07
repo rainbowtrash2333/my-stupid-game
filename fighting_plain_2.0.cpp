@@ -150,7 +150,10 @@ void DataupWithoutInput() {
                         //击中后的废墟消失
                         else if (canvas[i][j] == 4) {
                                 new_canvas[i][j] = 0;
-        for (i = high - 1; i > -1; --i) {
+      
+		//为啥不于上面合并了
+		//详情 www.rainbowtrash.top	  
+	    for (i = high - 1; i > -1; --i) {
                 for (j = width - 1; j > -1; --j) {
                         //底端的敌机消失
                         if ((i == high - 1) && (canvas[i][j] == 3)) {
