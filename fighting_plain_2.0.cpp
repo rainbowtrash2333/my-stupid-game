@@ -1,4 +1,4 @@
-/*      ¿¿¿¿BIUG¿¿¿¿¿       */
+/*      Ò»¸öÂúÂúBIUGµÄÀ¬»øÓÎÏ·       */
 /*       made by rainbowtrash        */
 
 //#include "stdafx.h"
@@ -10,217 +10,208 @@
 
 #define high 25
 #define width 50
-#define game_speed 50  //¿¿¿¿¿¿
+#define game_speed 50  //ÓÎÏ·ËÙ¶È¿ØÖÆ
 
-//¿¿¿¿
-int canvas[high][width]; // '0' ->space  ; '1' ->airplane * ;'2'->bullet | ,  '3'->enemy # , '4'->hit ¡ö;
+//È«¾Ö±äÁ¿
+int canvas[high][width]; // '0' ->space  ; '1' ->airplane * ;'2'->bullet | ,  '3'->enemy # , '4'->hit ??;
 int i, j;
 int *air;
 int score;
 int health;
 
-//¿¿¿¿¿
+//³õÊ¼»¯Êý¾Ý
 void startup() {
-	for (i = 0; i < high; ++i) {
-		for (j = 0; j < width; ++j)
-			canvas[i][j] = 0;
-	}
-	canvas[high / 2][width / 2] = 1;
-	air = &canvas[high / 2][width / 2];
-	score = 0;
-	health = 3;
+        for (i = 0; i < high; ++i) {
+                for (j = 0; j < width; ++j)
+                        canvas[i][j] = 0;
+        }
+        canvas[high / 2][width / 2] = 1;
+        air = &canvas[high / 2][width / 2];
+        score = 0;
+        health = 3;
 }
 
-//¹â±êÒÆ¶¯µ½(x,y)Î»ÖÃ
+//¹â±êÒÆ¶¯µ½( x, y ) 
 void gotoxy(int x, int y)
 {
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	COORD pos;
-	pos.X = x;
-	pos.Y = y;
-	SetConsoleCursorPosition(handle, pos);
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        COORD pos;
+        pos.X = x;
+        pos.Y = y;
+        SetConsoleCursorPosition(handle, pos);
 }
 
-// ÓÃÓÚÒþ²Ø¹â±ê
+// Òþ²Ø¹â±ê 
 void HideCursor()
 {
-	CONSOLE_CURSOR_INFO cursor_info = { 1, 0 };  // µÚ¶þ¸öÖµÎª0±íÊ¾Òþ²Ø¹â±ê
-	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
+        CONSOLE_CURSOR_INFO cursor_info = { 1, 0 }; 
+        SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
 }
 
 
-//¿¿¿¿
+//´òÓ¡»­Ãæ
 void show() {
-	gotoxy(0, 0);
-	HideCursor();
-	for (i = 0; i < high+1; ++i) {
-		for (j = 0; j < width+1; ++j) {
-			if (j == width) printf("|");
-			else if (i == high) printf("_");
-			else if (canvas[i][j] == 0) printf(" ");
-			else if (canvas[i][j] == 1) printf("*");
-			else if (canvas[i][j] == 2) printf("|");
-			else if (canvas[i][j] == 3) printf("#");
-			else if (canvas[i][j] == 4) printf("¡ö");
-		}
-		printf("\n");
-	}
-	Sleep(game_speed);
-	printf("ÉúÃü: %d\tµÃ·Ö: %d\n",health,score);
+        gotoxy(0, 0);
+        HideCursor();
+        for (i = 0; i < high+1; ++i) {
+                for (j = 0; j < width+1; ++j) {
+                        if (j == width) printf("|");
+                        else if (i == high) printf("_");
+                        else if (canvas[i][j] == 0) printf(" ");
+                        else if (canvas[i][j] == 1) printf("*");
+                        else if (canvas[i][j] == 2) printf("|");
+                        else if (canvas[i][j] == 3) printf("#");
+                        else if (canvas[i][j] == 4) printf("??");
+                }
+                printf("\n");
+        }
+        Sleep(game_speed);
+        printf("¨¦¨²?¨¹: %d\t¦Ì?¡¤?: %d\n",health,score);
 }
 
-//¿¿¿¿¿¿¿¿¿
+//ÓÐ¹ØÓÃ»§ÊäÈëµÄ¸üÐÂ
 void DataupWithInput() {
-	char input;
-	if (_kbhit()) {
-		input = _getch();
-		if (input == 's') {
-			*air = 0;
-			air = (air + width);
-			*air = 1;
-		}
-		else if (input == 'w') {
-			*air = 0;
-			air = (air - width);
-			*air = 1;
-		}
-		else if (input == 'a') {
-			*air = 0;
-			air = (air -1);
-			*air = 1;
-		}
-		else if (input == 'd') {
-			*air = 0;
-			air = (air + 1);
-			*air = 1;
-		}
-		else if (input == ' ') {
-			*(air - width) = 2;
-		}
-	}
+        char input;
+        if (_kbhit()) {
+                input = _getch();
+                if (input == 's') {
+                        *air = 0;
+                        air = (air + width);
+                        *air = 1;
+                }
+                else if (input == 'w') {
+                        *air = 0;
+                        air = (air - width);
+                        *air = 1;
+                }
+                else if (input == 'a') {
+                        *air = 0;
+                        air = (air -1);
+                        *air = 1;
+                }
+                else if (input == 'd') {
+                        *air = 0;
+                        air = (air + 1);
+                        *air = 1;
+                }
+                else if (input == ' ') {
+                        *(air - width) = 2;
+                }
+        }
 }
 
 
-//¿¿¿¿¿¿
+//²úÉúµÐ»úº¯Êý
 int product_anamy(int production_speed) {
-	static int n=0;
-	if (n < production_speed) {
-		++n;
-		return 0;
-	}
-	else {
-		srand((unsigned)time(NULL));
-		//canvas[0][2] = 3;
-		canvas[0][rand() % width] = 3;
-		n = 0;
-		return 1;
-	}
+        static int n=0;
+        if (n < production_speed) {
+                ++n;
+                return 0;
+        }
+        else {
+                srand((unsigned)time(NULL));
+                //canvas[0][2] = 3;
+                canvas[0][rand() % width] = 3;
+                n = 0;
+                return 1;
+        }
 }
 
-//¿¿¿¿¿¿¿¿¿¿
+//ÓÚÓÃ»§ÎÞ¹ØµÄÊý¾Ý¸üÐÂ
 void DataupWithoutInput() {
-	int new_canvas[high][width];
-	for (i = 0; i < high; ++i) {
-		for (j = 0; j < width; ++j) {
-		         //¿¿¿¿¿¿
-			if ((i == 0) && (canvas[0][j] == 2)) {
-				new_canvas[0][j] = 0;
-				canvas[0][j] = 0;
-			}
-			//¿¿
-			else if (canvas[i][j] == 1) {
-				new_canvas[i][j] = 1;
-				canvas[i][j] = 0;
-			}
-			//¿¿¿¿¿¿¿¿
-			//¿¿¿¿¿
-			else if ((canvas[i][j] == 2) && (canvas[i - 1][j] == 3)) {
-				new_canvas[i - 1][j] = 4;
-				new_canvas[i][j] = 0;
-				canvas[i - 1][j] = 0;
-				canvas[i][j] == 0;
-				score++;
-			}
-			//¿¿¿¿¿¿¿¿
-			else if ((canvas[i][j] == 2) && !(canvas[i - 1][j] == 3)) {
-				new_canvas[i - 1][j] = 2;
-				new_canvas[i][j] = 0;
-				canvas[i][j] = 0;
-			}
-			//¿¿¿¿¿¿¿¿
-			else if (canvas[i][j] == 4) {
-				new_canvas[i][j] = 0;
-				canvas[i][j] = 0;
-			}
-			//¿¿
-			else if (canvas[i][j] == 0) {
-				new_canvas[i][j] = 0;
-			}
-		}
-	}
-	//¿¿¿¿¿¿¿¿¿¿¿¿¿
-	//¿ www.rainbowtrash.top
-	for (i = high - 1; i > -1; --i) {
-		for (j = width - 1; j > -1; --j) {
-			//¿¿¿¿¿¿¿
-			if ((i == high - 1) && (canvas[i][j] == 3)) {
-				canvas[i][j] = 0;
-				new_canvas[i][j] = 0;
-			}
-			//¿¿¿¿
-			else if (canvas[i][j] == 3) {
-				new_canvas[i + 1][j] = 3;
-				new_canvas[i][j] = 0;
-				canvas[i][j] = 0;
-			}
-			//¿¿¿¿¿¿, ¿¿¿¿
-			if ((canvas[i][j] == 3) && canvas[i + 1][j] == 1) health--;
-		}
-	}
-	//¿¿¿¿canvas
-	for (i = 0; i < high; ++i) {
-		for (j = 0; j < width; ++j) {
-			canvas[i][j] = new_canvas[i][j];
-			}
-		}
-	//¿¿¿¿¿¿¿¿
-	srand((unsigned)time(NULL));
-	product_anamy(20+rand()%20);
+        int new_canvas[high][width];
+        for (i = 0; i < high; ++i) {
+                for (j = 0; j < width; ++j) {
+                         //ÔÚ¶¥¶ËµÄ×Óµ¯
+                        if ((i == 0) && (canvas[0][j] == 2)) {
+                                new_canvas[0][j] = 0;
+                                canvas[0][j] = 0;
+                        }
+                        //·É»ú
+                        else if (canvas[i][j] == 1) {
+                                new_canvas[i][j] = 1;
+                                canvas[i][j] = 0;
+                        }
+                        //Ç°·½ÓÐµÐ»úµÄ×Óµ¯
+                        //Âß¼­ÓÐÎÊÌâ
+                        else if ((canvas[i][j] == 2) && (canvas[i - 1][j] == 3)) {
+                                new_canvas[i - 1][j] = 4;
+                                new_canvas[i][j] = 0;
+                                canvas[i - 1][j] = 0;
+                                canvas[i][j] == 0;
+                                score++;
+                        }
+                        //Ç°·½Ã»µÐ»úµÄ×Óµ¯
+                        else if ((canvas[i][j] == 2) && !(canvas[i - 1][j] == 3)) {
+                                new_canvas[i - 1][j] = 2;
+                                new_canvas[i][j] = 0;
+                                canvas[i][j] = 0;
+                        }
+                        //»÷ÖÐºóµÄ·ÏÐæÏûÊ§
+                        else if (canvas[i][j] == 4) {
+                                new_canvas[i][j] = 0;
+        for (i = high - 1; i > -1; --i) {
+                for (j = width - 1; j > -1; --j) {
+                        //µ×¶ËµÄµÐ»úÏûÊ§
+                        if ((i == high - 1) && (canvas[i][j] == 3)) {
+                                canvas[i][j] = 0;
+                                new_canvas[i][j] = 0;
+                        }
+                        //µÐ»úÒÆ¶¯
+                        else if (canvas[i][j] == 3) {
+                                new_canvas[i + 1][j] = 3;
+                                new_canvas[i][j] = 0;
+                                canvas[i][j] = 0;
+                        }
+                        //µÐ»ú¼¯ÖÐ·É»ú, ÉúÃü¼õÒ»
+                        if ((canvas[i][j] == 3) && canvas[i + 1][j] == 1) health--;
+                }
+        }
+        //Éú³ÉÐÂµÄcanvas
+        for (i = 0; i < high; ++i) {
+                for (j = 0; j < width; ++j) {
+                        canvas[i][j] = new_canvas[i][j];
+                        }
+                }
+        //Ëæ»úÊ±¼äÉú³ÉµÐ»ú
+        srand((unsigned)time(NULL));
+        product_anamy(20+rand()%20);
 }
 
-//¿¿¿¿	
+//ÓÎÏ·½áÊø      
 int game_over() {
-	if (health) return 1;
-	else return 0;
+        if (health) return 1;
+        else return 0;
 }
 
-//debug¿¿, ¿¿canvas¿¿¿¿¿
+//debugº¯Êý, ´òÓ¡canvasµÄËùÓÐÊý¾Ý
 int debug(int num) {
-	if (num == 0) return 0;
-	else {
-		for (i = 0; i < high; ++i) {
-			for (j = 0; j < width; ++j)
-				printf("%d ", canvas[i][j]);
-			printf("\n");
-		}
-		//system("pause");
-		Sleep(500);
-		return 1;
+        if (num == 0) return 0;
+        else {
+                for (i = 0; i < high; ++i) {
+                        for (j = 0; j < width; ++j)
+                                printf("%d ", canvas[i][j]);
+                        printf("\n");
+                }
+                //system("pause");
+                Sleep(500);
+                return 1;
 
-	}
+        }
 }
 
-//main¿¿
+//mainº¯Êý
 int main()
 {
-	startup();
-	while(game_over()) {
-		DataupWithInput();
-		show();
-		debug(0);
-		DataupWithoutInput();
-		
-	}
+        startup();
+        while(game_over()) {
+                DataupWithInput();
+                show();
+                debug(0);
+                DataupWithoutInput();
+
+        }
     return 0;
 }
+
 
