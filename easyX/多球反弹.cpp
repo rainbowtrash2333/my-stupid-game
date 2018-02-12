@@ -89,4 +89,5 @@ int main() {
 	EndBatchDraw();
 	_getch();
 	closegraph();
+	return 0;
 }
