@@ -26,7 +26,7 @@ int startup_option(char flag) {
 	if (flag == '1') {
 		secondAngle = ti.wSecond * 2 * PI / 60;
 		minuteAngle = ti.wMinute * 2 * PI / 60;
-		hourAngle = ti.wHour * 2 * PI / 60;
+		hourAngle = ti.wHour * 2 * PI / 24;
 		second = ti.wSecond;
 		minute = ti.wMinute;
 		hour = ti.wHour;
