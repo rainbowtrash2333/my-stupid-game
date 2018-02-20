@@ -99,7 +99,7 @@ void update() {
 	}
 	if (minute == 60) {
 		hour++;
-		hourAngle+= 2 * PI / 60;
+		hourAngle+= 2 * PI / 24;
 		minute = 0;
 		minuteAngle = 0;
 	}
