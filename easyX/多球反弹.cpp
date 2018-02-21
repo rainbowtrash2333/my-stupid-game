@@ -14,7 +14,6 @@ struct ball {
 	int speed_y ;
 }ball[ball_num];
 
-int za;
 //检查是否与其他球相撞
 //是, 返回ball编号+1
 int check_ball(int num) {
