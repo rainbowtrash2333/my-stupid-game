@@ -1,4 +1,3 @@
-//#include"stdafx.h"
 #include <graphics.h>
 #include <conio.h>
 #include <time.h>
